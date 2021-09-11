@@ -11,7 +11,10 @@ from rest_framework.response import Response
 def apiOverview(request):
     api_urls = {
         'List': 'list/',
+        # 'Detail': 'detail/<str:pk>/',
         'Create': 'create/',
+        # 'Update': 'update/<str:pk>/',
+        # 'Delete': 'delete/<str:pk>/',
     }
     return Response(api_urls)
 
