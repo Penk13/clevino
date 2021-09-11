@@ -6,6 +6,10 @@ from .models import LandingUser
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
+from django.views import View
+from django.http import HttpResponse, HttpResponseNotFound
+import os
+
 
 @api_view(['GET'])
 def apiOverview(request):
@@ -60,3 +64,15 @@ def userCreate(request):
 #     user.delete()
 
 #     return Response('User succsesfully deleted!')
+
+# Add this CBV
+class Assets(View):
+
+    def get(self, _request, filename):
+        path = os.path.join(os.path.dirname(__file__), 'staticfiles', filename)
+
+        if os.path.isfile(path):
+            with open(path, 'rb') as file:
+                return HttpResponse(file.read(), content_type='application/javascript')
+        else:
+            return HttpResponseNotFound()
